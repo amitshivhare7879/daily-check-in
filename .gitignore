@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# APKs and sensitive env files
+*.apk
+.env
