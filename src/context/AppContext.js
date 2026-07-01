@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
+import * as Application from 'expo-application';
 import { supabase } from '../services/supabase';
 
 const AppContext = createContext();
@@ -26,7 +27,9 @@ export const AppProvider = ({ children }) => {
 
       if (error) return;
 
-      const currentVersionCode = 1; // Increment this whenever you build a new APK with native changes!
+      // Dynamically get the version code from the Android APK itself
+      const currentVersionCode = parseInt(Application.nativeBuildVersion || '1', 10);
+      
       if (data?.value?.version_code > currentVersionCode) {
         setUpdateInfo({
           updateAvailable: true,
